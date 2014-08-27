@@ -124,7 +124,10 @@
 
         scope.add = function() {
            var listToAdd = scope.selected(scope.selected.available);
-            var mx = removeMutallyExclusive(listToAdd,scope.selected.current);
+            var mx = [];
+            if (scope.selected.current){  // handle empty case
+                mx = removeMutallyExclusive(listToAdd,scope.selected.current);
+            }
             scope.available = $filter('orderBy')(scope.available.concat(mx),'roleName');
             scope.model = filterOut(scope.model,mx);
             scope.model = $filter('orderBy')(scope.model.concat(listToAdd),'roleName');
@@ -178,7 +181,7 @@
         // it was added because the inital state was incorrect
         // and refreshAvailable was not being called.
         scope.$watch('available', function(availModel){
-          scope.selected.available = angular.copy(availModel);
+          scope.selected.available = $filter('orderBy')(angular.copy(availModel),'roleName');
         });
       }
     };
