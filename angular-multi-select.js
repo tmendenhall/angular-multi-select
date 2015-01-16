@@ -60,7 +60,7 @@
           angular.forEach(original, function(entity) {
             var match = false;
             for(var i = 0; i < toFilter.length; i++) {
-              if(scope.renderItem(toFilter[i]) == scope.renderItem(entity)) {
+              if(scope.renderItem(toFilter[i]) === scope.renderItem(entity)) {
                 match = true;
                 break;
               }
